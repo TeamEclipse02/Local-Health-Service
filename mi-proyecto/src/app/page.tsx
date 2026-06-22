@@ -3,26 +3,47 @@ import React from 'react';
 export default function Home() {
   return (
     <div className="min-h-screen bg-[#D0C4C4]/30 text-slate-800 flex flex-col font-sans">
-      {/* 1. BARRA DE NAVEGACIÓN (Navbar) */}
-      <nav className="bg-[#2172BE] text-white px-6 py-4 flex items-center justify-between shadow-md">
+      
+      {/* ─── BARRA DE NAVEGACIÓN IDÉNTICA A LAS OTRAS PÁGINAS ─── */}
+      <nav style={{
+        backgroundColor: "#2172BE",
+        color: "#ffffff",
+        padding: "16px 24px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)"
+      }}>
         {/* Logo e Identificador */}
-        <div className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-inner">
-            {/* Icono temporal circular médico */}
-            <span className="text-[#2172BE] font-bold text-xl">🏥</span>
+        <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
+          <div style={{ 
+            width: "40px", 
+            height: "40px", 
+            backgroundColor: "#ffffff", 
+            borderRadius: "50%", 
+            display: "flex", 
+            alignItems: "center", 
+            justifyContent: "center",
+            overflow: "hidden" 
+          }}>
+            <img 
+              src="https://imgur.com/3bgPkrk.jpg" 
+              alt="Logo Oficial" 
+              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            />
           </div>
-          <span className="font-semibold text-lg tracking-wide">Local Health Service</span>
+          <span style={{ fontWeight: "600", fontSize: "18px", letterSpacing: "0.5px" }}>Local Health Service</span>
         </div>
 
         {/* Menú de Enlaces */}
-        <div className="flex items-center gap-8 font-medium text-sm">
-          <a href="#" className="hover:text-[#76B3DB] transition-colors border-b-2 border-white pb-1">INICIO</a>
-          <a href="#" className="hover:text-[#76B3DB] transition-colors pb-1">MEDICAMENTOS</a>
-          <a href="#" className="hover:text-[#76B3DB] transition-colors pb-1">SERVICIOS DE SALUD</a>
+        <div style={{ display: "flex", alignItems: "center", gap: "32px", fontSize: "14px", fontWeight: "500" }}>
+          <a href="/" style={{ color: "#ffffff", textDecoration: "none", borderBottom: "2px solid #ffffff", paddingBottom: "4px" }}>INICIO</a>
+          <a href="/medicamentos" style={{ color: "#ffffff", textDecoration: "none", opacity: 0.85 }}>MEDICAMENTOS</a>
+          <a href="/servicios" style={{ color: "#ffffff", textDecoration: "none", opacity: 0.85 }}>SERVICIOS DE SALUD</a>
         </div>
       </nav>
 
-      {/* 2. CONTENEDOR PRINCIPAL (Hero Section) */}
+      {/* ─── CONTENEDOR PRINCIPAL (Hero Section) ─── */}
       <main className="flex-1 flex items-center justify-center p-6 md:p-12">
         <div className="bg-white rounded-[40px] shadow-xl max-w-5xl w-full p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center min-h-[450px]">
           
@@ -54,9 +75,7 @@ export default function Home() {
 
           {/* COLUMNA DERECHA: Imagen y Banner Estilizado */}
           <div className="relative w-full h-full min-h-[280px] bg-[#76B3DB]/40 rounded-[32px] p-4 flex items-center justify-center overflow-hidden group">
-            {/* Contenedor simulador de la foto del Figma */}
             <div className="relative w-full h-full bg-slate-200 rounded-[24px] overflow-hidden shadow-md flex items-center justify-center">
-              {/* NOTA: Cuando tengas tu imagen real en /public, reemplaza esto por un tag <Image /> de Next.js */}
               <img 
                 src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800" 
                 alt="Médicos expertos"
