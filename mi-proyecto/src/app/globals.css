@@ -1,0 +1,101 @@
+/* 1. IMPORTACIÓN DE FUENTES */
+@import url('https://fonts.googleapis.com/css2?family=Jomhuria&family=Playfair+Display+SC:wght@900&family=Playfair+Display:wght@900&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+
+/* 2. EL NUEVO TAILWIND (Versión Moderna) */
+@import "tailwindcss";
+
+/* 3. RESET MANUAL */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto Flex', sans-serif; 
+}
+
+/* 4. TUS CLASES PERSONALIZADAS */
+.barra-superior {
+    background-color: #2172BE;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    padding: 0 50px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.logo-health {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 28px;
+}
+
+.menu-navegacion {
+    display: flex;
+    gap: 30px;
+    margin-left: auto;
+}
+
+.link-menu {
+    font-family: 'Playfair Display SC', serif;
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.contenedor-principal {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.titulo-jomhuria {
+    font-family: 'Jomhuria', serif;
+    color: #1F91DC;
+    font-size: 100px;
+    line-height: 0.8;
+    margin-bottom: 30px;
+}
+
+.subtexto-azul {
+    color: #1F91DC;
+    font-family: 'Roboto Flex', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 40px;
+}
+
+.grid-medicamentos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.cuadro-imagen {
+    background-color: #76B3DB;
+    height: 250px;
+    border-radius: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px;
+    margin-bottom: 15px;
+}
+
+.boton-azul {
+    background-color: #2172BE;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Roboto Flex', sans-serif;
+}
