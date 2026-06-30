@@ -1,7 +1,7 @@
-import '@/app/globals.css'; // <-- Cambiado a 'globals' con S y usando el alias oficial
-import type { Metadata } from 'next';
+import React from 'react';
+import './globals.css';
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Sistema Inteligente de Salud',
   description: 'Proyecto Académico 2026',
 };
