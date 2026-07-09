@@ -1,12 +1,34 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import "@/app/globals.css";
 
+// Las 4 imágenes guardadas para el carrusel
+const carruselImagenes = [
+  {
+    src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800",
+    alt: "Médicos expertos - Original"
+  },
+  {
+    src: "https://apotheka.com/wp-content/uploads/2022/05/logos-de-farmacias-modernas.jpg",
+    alt: "Logos de farmacias modernas"
+  },
+  {
+    src: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7z7pjmWtbWvaGFwRNOHwzR8u6pXD-JP4J3CbJqxm5NaoFeLDbYDVLBi28&s=10",
+    alt: "Referencia logo farmacia"
+  },
+  {
+    src: "https://extendeal.com/hubfs/Foto-28MAY-01.png",
+    alt: "Foto Extendeal"
+  }
+];
+
 export default function Home(): React.JSX.Element {
   const pathname = usePathname();
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   // Estilos de la barra de navegación idénticos a las demás vistas
   const linkStyle = (path: string) => {
@@ -22,10 +44,23 @@ export default function Home(): React.JSX.Element {
     };
   };
 
+  // Alterna automáticamente cada 3 segundos controlando la opacidad
+  useEffect(() => {
+    const triggerAnimation = setInterval(() => {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setCurrentSlide((prev) => (prev === carruselImagenes.length - 1 ? 0 : prev + 1));
+        setIsAnimating(false);
+      }, 300); // Duración del fade-out
+    }, 3000);
+
+    return () => clearInterval(triggerAnimation);
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col font-sans transition-colors duration-200">
       
-      {/* Estilos CSS Embebidos */}
+      {/* Estilos CSS Embebidos Intactos */}
       <style dangerouslySetInnerHTML={{ __html: `
         .container-hero {
           max-width: 1200px;
@@ -38,7 +73,7 @@ export default function Home(): React.JSX.Element {
           border-radius: 24px;
           box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
         }
-        /* Botones de acción idénticos */
+        /* Botones de acción originales */
         .btn-hero-action {
           background-color: #1F91DC;
           color: white;
@@ -51,6 +86,24 @@ export default function Home(): React.JSX.Element {
         .btn-hero-action:hover {
           background-color: #2172BE;
           transform: translateY(-1px);
+        }
+
+        /* Estilos de los circulitos indicadores SIN BORDES */
+        .carrusel-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background-color: #CBD5E1;
+          border: none; /* Quitados los bordes */
+          cursor: pointer;
+          transition: all 0.4s ease;
+          padding: 0;
+        }
+        .carrusel-dot.active {
+          background-color: #1F91DC;
+          transform: scale(1.3);
+          width: 20px; /* Efecto píldora moderno cuando está activo */
+          border-radius: 4px;
         }
       `}} />
 
@@ -115,27 +168,44 @@ export default function Home(): React.JSX.Element {
               Conéctese con la farmacia local para obtener disponibilidad inmediata de medicamentos y cotizaciones inteligentes transparentes.
             </p>
 
-            {/* Botones de Acción Centrados */}
+            {/* Botón de Acción Centrado */}
             <div className="flex flex-wrap gap-4 pt-4 justify-center">
-              <Link href="/secion" className="btn-hero-action inline-block">
-                Inscribirse
-              </Link>
-              
               <Link href="/vip" className="btn-hero-action inline-block">
                 Más información
               </Link>
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: Imagen Estilizada Limpia */}
-          <div className="relative w-full h-full min-h-[320px] bg-[#76B3DB]/20 rounded-[32px] p-4 flex items-center justify-center overflow-hidden group border border-slate-200/60">
-            <div className="relative w-full h-full bg-slate-100 rounded-[24px] overflow-hidden shadow-sm flex items-center justify-center min-h-[290px]">
-              <img 
-                src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800" 
-                alt="Médicos expertos"
-                className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-500"
-              />
+          {/* COLUMNA DERECHA: Marco Negro Grueso Estilizado y Animado */}
+          <div className="w-full max-w-[500px] h-[350px] mx-auto rounded-[24px] overflow-hidden border-4 border-black bg-slate-100 relative shadow-md">
+            
+            {/* Imagen del carrusel con transiciones fluidas de opacidad y escala */}
+            <img 
+              src={carruselImagenes[currentSlide].src} 
+              alt={carruselImagenes[currentSlide].alt}
+              className={`w-full h-full object-cover transition-all duration-500 ease-in-out transform ${
+                isAnimating ? 'opacity-40 scale-98 blur-xs' : 'opacity-100 scale-100 blur-none'
+              }`}
+            />
+
+            {/* Indicadores inferiores estilizados sin borde exterior */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2.5 z-10 bg-white/70 px-4 py-2 rounded-full backdrop-blur-md shadow-sm">
+              {carruselImagenes.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setIsAnimating(true);
+                    setTimeout(() => {
+                      setCurrentSlide(index);
+                      setIsAnimating(false);
+                    }, 200);
+                  }}
+                  className={`carrusel-dot ${currentSlide === index ? 'active' : ''}`}
+                  aria-label={`Ir al slide ${index + 1}`}
+                />
+              ))}
             </div>
+
           </div>
 
         </div>

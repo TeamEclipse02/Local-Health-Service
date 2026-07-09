@@ -192,7 +192,7 @@ export default function MedicamentosPage() {
                 textDecoration: "none"
               }}
             >
-              📷 Escanear Receta
+              Escanear Receta
             </Link>
  
             <aside style={{ background: "#fff", padding: "20px", borderRadius: "12px", height: "fit-content", boxShadow: "0 1px 3px rgba(0,0,0,0.05)" }}>
