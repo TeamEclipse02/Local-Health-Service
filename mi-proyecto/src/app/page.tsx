@@ -1,11 +1,10 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import "@/app/globals.css";
 
-// Las 4 imágenes guardadas para el carrusel
 const carruselImagenes = [
   {
     src: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800",
@@ -30,7 +29,6 @@ export default function Home(): React.JSX.Element {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
 
-  // Estilos de la barra de navegación idénticos a las demás vistas
   const linkStyle = (path: string) => {
     const isActive = pathname === path;
     return {
@@ -39,19 +37,19 @@ export default function Home(): React.JSX.Element {
       borderBottom: isActive ? "2px solid #ffffff" : "2px solid transparent",
       paddingBottom: "4px",
       opacity: isActive ? 1 : 0.85,
-      transition: "opacity 0.2s, border-color 0.2s",
-      fontWeight: isActive ? "600" : "500"
+      transition: "opacity 0.2s, border-color 0.2s, transform 0.2s ease",
+      fontWeight: isActive ? "600" : "500",
+      display: "inline-block"
     };
   };
 
-  // Alterna automáticamente cada 3 segundos controlando la opacidad
   useEffect(() => {
     const triggerAnimation = setInterval(() => {
       setIsAnimating(true);
       setTimeout(() => {
         setCurrentSlide((prev) => (prev === carruselImagenes.length - 1 ? 0 : prev + 1));
         setIsAnimating(false);
-      }, 300); // Duración del fade-out
+      }, 300);
     }, 3000);
 
     return () => clearInterval(triggerAnimation);
@@ -60,7 +58,6 @@ export default function Home(): React.JSX.Element {
   return (
     <div className="min-h-screen bg-[#f8fafc] text-slate-800 flex flex-col font-sans transition-colors duration-200">
       
-      {/* Estilos CSS Embebidos Intactos */}
       <style dangerouslySetInnerHTML={{ __html: `
         .container-hero {
           max-width: 1200px;
@@ -73,28 +70,21 @@ export default function Home(): React.JSX.Element {
           border-radius: 24px;
           box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
         }
-        /* Botones de acción originales */
         .btn-hero-action {
           background-color: #1F91DC;
           color: white;
           font-weight: 700;
           padding: 14px 32px;
           border-radius: 12px;
-          transition: all 0.2s;
           box-shadow: 0 4px 6px -1px rgba(31, 145, 220, 0.3);
         }
-        .btn-hero-action:hover {
-          background-color: #2172BE;
-          transform: translateY(-1px);
-        }
 
-        /* Estilos de los circulitos indicadores SIN BORDES */
         .carrusel-dot {
           width: 8px;
           height: 8px;
           border-radius: 50%;
           background-color: #CBD5E1;
-          border: none; /* Quitados los bordes */
+          border: none;
           cursor: pointer;
           transition: all 0.4s ease;
           padding: 0;
@@ -102,7 +92,7 @@ export default function Home(): React.JSX.Element {
         .carrusel-dot.active {
           background-color: #1F91DC;
           transform: scale(1.3);
-          width: 20px; /* Efecto píldora moderno cuando está activo */
+          width: 20px;
           border-radius: 4px;
         }
       `}} />
@@ -120,28 +110,16 @@ export default function Home(): React.JSX.Element {
         boxSizing: "border-box",
         zIndex: 50
       }}>
-        {/* Logo e Identificador */}
         <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
           <div style={{ 
-            width: "40px", 
-            height: "40px", 
-            backgroundColor: "#ffffff", 
-            borderRadius: "50%", 
-            display: "flex", 
-            alignItems: "center", 
-            justifyContent: "center",
-            overflow: "hidden" 
+            width: "40px", height: "40px", backgroundColor: "#ffffff", borderRadius: "50%", 
+            display: "flex", alignItems: "center", justifyContent: "center", overflow: "hidden" 
           }}>
-            <img 
-              src="https://imgur.com/3bgPkrk.jpg" 
-              alt="Logo Oficial" 
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
+            <img src="https://imgur.com/3bgPkrk.jpg" alt="Logo Oficial" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           </div>
           <span style={{ fontWeight: "600", fontSize: "18px", letterSpacing: "0.5px" }}>Local Health Service</span>
         </div>
 
-        {/* Menú de Enlaces */}
         <div style={{ display: "flex", alignItems: "center", gap: "32px", fontSize: "14px" }}>
           <Link href="/" style={linkStyle("/")}>INICIO</Link>
           <Link href="/medicamentos" style={linkStyle("/medicamentos")}>MEDICAMENTOS</Link>
@@ -153,7 +131,6 @@ export default function Home(): React.JSX.Element {
       <main className="flex-1 flex items-center justify-center p-6 md:p-12">
         <div className="container-hero hero-card p-8 md:p-14 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           
-          {/* COLUMNA IZQUIERDA: Textos y Acciones Completamente Centrados */}
           <div className="flex flex-col items-center text-center space-y-6 w-full justify-center">
             <div className="space-y-3">
               <h1 className="text-[#1F91DC] text-4xl md:text-5xl font-extrabold tracking-tight leading-tight">
@@ -168,7 +145,6 @@ export default function Home(): React.JSX.Element {
               Conéctese con la farmacia local para obtener disponibilidad inmediata de medicamentos y cotizaciones inteligentes transparentes.
             </p>
 
-            {/* Botón de Acción Centrado */}
             <div className="flex flex-wrap gap-4 pt-4 justify-center">
               <Link href="/vip" className="btn-hero-action inline-block">
                 Más información
@@ -176,10 +152,8 @@ export default function Home(): React.JSX.Element {
             </div>
           </div>
 
-          {/* COLUMNA DERECHA: Marco Negro Grueso Estilizado y Animado */}
-          <div className="w-full max-w-[500px] h-[350px] mx-auto rounded-[24px] overflow-hidden border-4 border-black bg-slate-100 relative shadow-md">
-            
-            {/* Imagen del carrusel con transiciones fluidas de opacidad y escala */}
+          {/* COLUMNA DERECHA */}
+          <div className="w-full max-w-[500px] h-[350px] mx-auto rounded-[24px] overflow-hidden bg-slate-100 relative shadow-md">
             <img 
               src={carruselImagenes[currentSlide].src} 
               alt={carruselImagenes[currentSlide].alt}
@@ -188,7 +162,6 @@ export default function Home(): React.JSX.Element {
               }`}
             />
 
-            {/* Indicadores inferiores estilizados sin borde exterior */}
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-2.5 z-10 bg-white/70 px-4 py-2 rounded-full backdrop-blur-md shadow-sm">
               {carruselImagenes.map((_, index) => (
                 <button
@@ -205,13 +178,11 @@ export default function Home(): React.JSX.Element {
                 />
               ))}
             </div>
-
           </div>
 
         </div>
       </main>
 
-      {/* ─── PIE DE PÁGINA ─── */}
       <footer className="bg-white border-t border-slate-200/80 p-4 text-center text-xs text-slate-400 font-medium mt-auto">
         &copy; {new Date().getFullYear()} Local Health Service. Todos los derechos reservados.
       </footer>

@@ -99,3 +99,27 @@ body {
     cursor: pointer;
     font-family: 'Roboto Flex', sans-serif;
 }
+/* --- ANIMACIÓN GLOBAL PARA BOTONES Y ENLACES --- */
+
+/* Selecciona todos los botones, enlaces y elementos con la clase .btn-hero-action */
+button, 
+a, 
+.btn-hero-action,
+.carrusel-dot {
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease !important;
+}
+
+/* Efecto al pasar el cursor (Hover) */
+button:hover, 
+a:hover, 
+.btn-hero-action:hover,
+.carrusel-dot:hover {
+  transform: scale(1.08) !important; /* Se agranda un 8% */
+}
+
+/* Efecto cuando el usuario hace clic (Active) */
+button:active, 
+a:active, 
+.btn-hero-action:active {
+  transform: scale(0.95) !important; /* Se encoge un poquito al presionarlo, da sensación de botón real */
+}

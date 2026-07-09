@@ -1,5 +1,5 @@
 import React from 'react';
-import Script from 'next/script'; // 👈 1. Importamos el componente de Next.js
+import Script from 'next/script'; 
 import './globals.css';
 
 export const metadata = {
@@ -17,11 +17,11 @@ export default function RootLayout({
       <body>
         {children}
 
-        {/* 👈 2. El script de UserWay se pone aquí abajo, antes del cierre de </body> */}
+        {/* El script de UserWay se queda aquí abajo intacto */}
         <Script 
           src="https://cdn.userway.org/widget.js" 
           data-account="NpY74r9teu"
-          strategy="lazyOnload" // Carga el widget de forma eficiente sin ralentizar tu página
+          strategy="lazyOnload" 
         />
       </body>
     </html>
